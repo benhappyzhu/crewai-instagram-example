@@ -1,14 +1,19 @@
 #!/usr/bin/env python
 from toutiao.crew import ToutiaoCrew
 import datetime
+import sys
+import io
 
+# sys.stdout = io.TextIOWrapper(sys.stdout.buffer, encoding='utf-8')
 
 def run():
+    sys.stdout = io.TextIOWrapper(sys.stdout.buffer, encoding='utf-8')
+    
     # Replace with your inputs, it will automatically interpolate any tasks and agents information
     inputs = {
         'current_date': datetime.datetime.now().strftime("%Y-%m-%d"),
-        'toutiao_description': input('Enter the page description here: '),
-        'topic_of_the_week': input('Enter the topic of the week here: '),
+        'toutiao_description': input('请输入页面描述: ').encode('utf-8').decode('utf-8'),
+        'topic_of_the_week': input('请输入本周话题: ').encode('utf-8').decode('utf-8'),
     }
     ToutiaoCrew().crew().kickoff(inputs=inputs)
     

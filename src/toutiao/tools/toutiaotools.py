@@ -47,10 +47,10 @@ class ToutiaoTools:
     }
     
     response = requests.get(url, params=payload) 
-    results = response.json()['data']
+    data = response.json().get('data', [])
     
     string = []
-    for result in results:
+    for result in data:
       string.append(f"{result['title']}\n{result['abstract']}\n{result['article_url']}\n\n")
       
     return "".join(string)
