@@ -1,6 +1,6 @@
 from crewai import Agent, Crew, Process, Task
 from crewai.project import CrewBase, agent, crew, task
-from instagram.tools.search import SearchTools
+from toutiao.tools.toutiaotools import ToutiaoTools
 from langchain_anthropic import ChatAnthropic
 
 # Uncomment the following line to use an example of a custom tool
@@ -14,8 +14,8 @@ ClaudeHaiku = ChatAnthropic(
 )
 
 @CrewBase
-class InstagramCrew:
-    """Instagram crew"""
+class ToutiaoCrew:
+    """Toutiao crew"""
 
     agents_config = "config/agents.yaml"
     tasks_config = "config/tasks.yaml"
@@ -25,9 +25,9 @@ class InstagramCrew:
         return Agent(
             config=self.agents_config["market_researcher"],
             tools=[
-              SearchTools.search_internet,
-              SearchTools.search_instagram,
-              SearchTools.open_page,
+              ToutiaoTools.search_toutiao,
+              ToutiaoTools.search_toutiao_user,
+              ToutiaoTools.open_page,
             ],
             verbose=True,
             llm=ClaudeHaiku,
@@ -35,7 +35,11 @@ class InstagramCrew:
 
     @agent
     def content_strategist(self) -> Agent:
-        return Agent(config=self.agents_config["content_strategist"], verbose=True,llm=ClaudeHaiku)
+        return Agent(
+            config=self.agents_config["content_strategist"], 
+            verbose=True,
+            llm=ClaudeHaiku
+        )
 
     @agent
     def visual_creator(self) -> Agent:
@@ -48,7 +52,11 @@ class InstagramCrew:
 
     @agent
     def copywriter(self) -> Agent:
-        return Agent(config=self.agents_config["copywriter"], verbose=True,llm=ClaudeHaiku)
+        return Agent(
+            config=self.agents_config["copywriter"], 
+            verbose=True,
+            llm=ClaudeHaiku
+        )
 
     @task
     def market_research(self) -> Task:
