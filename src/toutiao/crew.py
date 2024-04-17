@@ -26,7 +26,7 @@ class ToutiaoCrew:
             config=self.agents_config["market_researcher"],
             tools=[
               ToutiaoTools.search_toutiao,
-              ToutiaoTools.search_toutiao_user,
+            #   ToutiaoTools.search_toutiao_user,
               ToutiaoTools.open_page,
             ],
             verbose=True,
