@@ -2,7 +2,7 @@ from crewai import Agent, Crew, Process, Task
 from crewai.project import CrewBase, agent, crew, task
 from toutiao.tools.toutiaotools import ToutiaoTools
 from langchain_anthropic import ChatAnthropic
-
+from toutiao.tools.browser_tools import BrowserTools
 # Uncomment the following line to use an example of a custom tool
 # from instagram.tools.custom_tool import MyCustomTool
 
@@ -27,7 +27,7 @@ class ToutiaoCrew:
             tools=[
               ToutiaoTools.search_toutiao,
             #   ToutiaoTools.search_toutiao_user,
-              ToutiaoTools.open_page,
+              BrowserTools.scrape_and_summarize_website,
             ],
             verbose=True,
             llm=ClaudeHaiku,
